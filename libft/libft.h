@@ -6,7 +6,7 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 20:09:49 by gbierny           #+#    #+#             */
-/*   Updated: 2022/05/03 20:47:00 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/06/13 00:00:18 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 // 
 //PERSONAL_ADD
 // 
-char    *ft_substr_cat(char **dest, char *src);
+char	*ft_substr_cat(char **dest, char *src);
 
 #endif

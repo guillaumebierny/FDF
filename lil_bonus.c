@@ -6,7 +6,7 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:46:59 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/10 04:47:59 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/06/14 03:48:08 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	reset_image(t_image *image, unsigned int color)
 	}
 }
 
-int	reset_dimension(int kc, t_all_struct *as)
+void	reset_dimension(int kc, t_as *as)
 {
-	if (kc != 256)
-		return (1);
+	if (kc != CONTROL_LEFT)
+		return ;
 	as->image->zoom = as->image->first_zoom;
 	as->image->hauteur = 1;
 	as->image->t_vertical = 0;
@@ -43,26 +43,20 @@ int	reset_dimension(int kc, t_all_struct *as)
 	as->angle_y = as->first_angley;
 	as->angle_z = as->first_anglez;
 	as->persistance = 0;
-	return (0);
 }
 
-void	persistance(int kc, t_all_struct *as)
+void	persistance(int kc, t_as *as)
 {
-	if (kc == 1)
+	if (kc == KEY_Q)
 		as->persistance = 1;
-	if (kc == 3)
+	if (kc == KEY_E)
 		as->persistance = 0;
 }
 
-int	change_projection(int kc, t_all_struct *as)
+void	change_projection(int kc, t_as *as)
 {
-	if (kc == 35)
-	{
-		if (as->top)
-			as->top = 0;
-		else
-			as->top = 1;
-		return (0);
-	}
-	return (1);
+	if (kc == KEY_P)
+		as->top = 1;
+	if (kc == KEY_I)
+		as->top = 0;
 }

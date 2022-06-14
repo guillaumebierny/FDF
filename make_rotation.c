@@ -6,13 +6,13 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:41:58 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/10 04:48:41 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/06/14 03:48:08 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FDF.h"
 
-void	mrx(t_coordonnees *p, t_all_struct *as, double angle)
+void	mrx(t_coor *p, t_as *as, double angle)
 {
 	double	source_y;
 	double	source_z;
@@ -25,7 +25,7 @@ void	mrx(t_coordonnees *p, t_all_struct *as, double angle)
 		+ ((double)source_z * cos(angle)) - (double)source_z;
 }
 
-void	mry(t_coordonnees *p, t_all_struct *as, double angle)
+void	mry(t_coor *p, t_as *as, double angle)
 {
 	double	source_x;
 	double	source_z;
@@ -38,7 +38,7 @@ void	mry(t_coordonnees *p, t_all_struct *as, double angle)
 		+ ((double)source_z * cos(as->angle_y)) - (double)source_z;
 }
 
-void	mrz(t_coordonnees *p, t_all_struct *as, double angle)
+void	mrz(t_coor *p, t_as *as, double angle)
 {
 	double	source_x;
 	double	source_y;
@@ -51,8 +51,8 @@ void	mrz(t_coordonnees *p, t_all_struct *as, double angle)
 		+ ((double)source_y * cos(angle)) - (double)source_y;
 }
 
-void	make_rotation(int kc, t_coordonnees *point_rotated,
-	t_all_struct *as, t_radian rad)
+void	make_rotation(int kc, t_coor *point_rotated,
+	t_as *as, t_radian rad)
 {
 	int	source_x;
 	int	source_y;
@@ -65,7 +65,7 @@ void	make_rotation(int kc, t_coordonnees *point_rotated,
 	mrz(&(*point_rotated), as, rad.z);
 }
 
-void	rotation(int kc, t_all_struct *as)
+void	rotation(int kc, t_as *as)
 {
 	t_radian	rad;
 	int			y;

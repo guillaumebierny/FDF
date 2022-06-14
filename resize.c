@@ -6,7 +6,7 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 22:47:31 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/10 07:31:37 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/06/14 03:43:57 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	resize(int i, double *zoom)
 		*zoom += 1;
 }
 
-void	get_mins(t_coordonnees point, int *min_x, int *min_y, t_image *image)
+void	get_mins(t_coor point, int *min_x, int *min_y, t_image *image)
 {
 	if (point.x < *min_x)
 	{
@@ -37,7 +37,7 @@ void	get_mins(t_coordonnees point, int *min_x, int *min_y, t_image *image)
 	}
 }
 
-void	get_maxs(t_coordonnees point, int *max_x, int *max_y)
+void	get_maxs(t_coor point, int *max_x, int *max_y)
 {
 	if (point.x > *max_x)
 		*max_x = point.x;
@@ -45,7 +45,7 @@ void	get_maxs(t_coordonnees point, int *max_x, int *max_y)
 		*max_y = point.y;
 }
 
-void	get_width_and_height(t_image *image, t_coordonnees **point)
+void	get_width_and_height(t_image *image, t_coor **point)
 {
 	int	min[2];
 	int	max[2];
@@ -73,7 +73,7 @@ void	get_width_and_height(t_image *image, t_coordonnees **point)
 	image->height = (get_absolute(max[1] - min[1]));
 }
 
-int	get_dimension_to_project(t_coordonnees **point, t_image *image)
+int	get_dimension_to_project(t_coor **point, t_image *image)
 {
 	get_width_and_height(image, point);
 	if (image->width < 400)

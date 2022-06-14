@@ -6,13 +6,13 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:32:58 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/10 04:33:48 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/06/14 03:43:57 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FDF.h"
 
-void	set_right_value(t_coordonnees *point, int x, int y, char *z)
+void	set_right_value(t_coor *point, int x, int y, char *z)
 {
 	char			**arg;
 	unsigned int	new_color;
@@ -31,7 +31,7 @@ void	set_right_value(t_coordonnees *point, int x, int y, char *z)
 		point->color = new_color;
 }
 
-void	set_point(t_coordonnees *point, t_index ind, char **z, t_image *image)
+void	set_point(t_coor *point, t_index ind, char **z, t_image *image)
 {
 	int	vertical;
 
@@ -47,8 +47,8 @@ void	set_point(t_coordonnees *point, t_index ind, char **z, t_image *image)
 	point[ind.x].exist = 0;
 }
 
-void	set_same_value(t_coordonnees ***dest,
-	t_coordonnees **source, int x, int y)
+void	set_same_value(t_coor ***dest,
+	t_coor **source, int x, int y)
 {
 	int	vertical;
 

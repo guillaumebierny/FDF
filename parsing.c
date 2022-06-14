@@ -6,7 +6,7 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 00:11:44 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/10 16:57:27 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/06/14 03:43:57 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 unsigned int	ft_atoi_base(char *s, char *base)
 {
-	int	i;
+	int				i;
 	unsigned int	res;
-	int	s_len;
+	int				s_len;
+
 	s_len = ft_strlen(base);
 	res = 0;
 	i = 1;
@@ -51,7 +52,7 @@ void	read_file(char *argv, t_index *ind, char **whole_file)
 }
 
 void	loop_to_set_point(t_index ind[2], char **all_split[2],
-	t_coordonnees ***point, t_image *image)
+	t_coor ***point, t_image *image)
 {
 	while (ind[1].y < ind[0].y)
 	{
@@ -59,19 +60,18 @@ void	loop_to_set_point(t_index ind[2], char **all_split[2],
 		all_split[1] = ft_split(all_split[0][ind[1].y], ' ');
 		while (all_split[1][ind[0].x])
 			ind[0].x++;
-		(*point)[ind[1].y] = (t_coordonnees *)malloc(sizeof(t_coordonnees)
+		(*point)[ind[1].y] = (t_coor *)malloc(sizeof(t_coor)
 				* (ind[0].x + 1));
 		if (!(*point)[ind[1].y])
 			exit(EXIT_FAILURE);
 		ind[1].x = ind[0].x;
 		set_point((*point)[ind[1].y], ind[1], all_split[1], image);
 		free_split(all_split[1]);
-		// printf("bouuuuuuu: %d | %d | %d\n", (*point)[ind[1].y][2].y, (*point)[ind[1].y][2].x, (*point)[ind[1].y][2].z);
 		ind[1].y++;
 	}
 }
 
-void	get_point(char *argv, t_image *image, t_coordonnees ***point)
+void	get_point(char *argv, t_image *image, t_coor ***point)
 {
 	int		fd;
 	char	*whole_file;
@@ -82,18 +82,18 @@ void	get_point(char *argv, t_image *image, t_coordonnees ***point)
 	ind[0].y = 0;
 	whole_file = NULL;
 	read_file(argv, &ind[0], &whole_file);
-	*point = (t_coordonnees **)malloc((ind[0].y + 1) * sizeof(t_coordonnees *));
+	*point = (t_coor **)malloc((ind[0].y + 1) * sizeof(t_coor *));
 	if (!*point)
 		exit(EXIT_FAILURE);
 	printf("%s\n", whole_file);
 	all_split[0] = ft_split(whole_file, '\n');
 	loop_to_set_point(ind, all_split, point, image);
-	(*point)[ind[0].y] = malloc(sizeof(t_coordonnees) * 1);
+	(*point)[ind[0].y] = malloc(sizeof(t_coor) * 1);
 	(*point)[ind[0].y][0].exist = 0;
 	free_split(all_split[0]);
 }
 
-void	dup_tab_point(t_coordonnees **source, t_coordonnees ***dest)
+void	dup_tab_point(t_coor **source, t_coor ***dest)
 {
 	int	y;
 	int	x;
@@ -105,19 +105,19 @@ void	dup_tab_point(t_coordonnees **source, t_coordonnees ***dest)
 		y++;
 	while (source[0][x].exist)
 		x++;
-	(*dest) = (t_coordonnees **)malloc(sizeof(t_coordonnees *) * (y + 1));
+	(*dest) = (t_coor **)malloc(sizeof(t_coor *) * (y + 1));
 	if (!*dest)
 		exit(EXIT_FAILURE);
 	horizontal = 0;
 	while (horizontal < y)
 	{
-		(*dest)[horizontal] = (t_coordonnees *)malloc(sizeof(t_coordonnees)
+		(*dest)[horizontal] = (t_coor *)malloc(sizeof(t_coor)
 				* (x + 1));
 		if (!(*dest)[horizontal])
 			exit(EXIT_FAILURE);
 		set_same_value(dest, source, x, horizontal);
 		horizontal++;
 	}
-	(*dest)[y] = malloc(sizeof(t_coordonnees) * 1);
+	(*dest)[y] = malloc(sizeof(t_coor) * 1);
 	(*dest)[y][0].exist = 0;
 }

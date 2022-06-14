@@ -6,14 +6,14 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:26:55 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/10 16:54:42 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/06/14 03:52:12 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FDF.h"
 
-t_bres_v	initialyse_t_bres_v(t_coordonnees p1
-		, t_coordonnees p2, t_image *image)
+t_bres_v	initialyse_t_bres_v(t_coor p1,
+	t_coor p2, t_image *image)
 {
 	t_bres_v	bres_v;
 
@@ -21,7 +21,6 @@ t_bres_v	initialyse_t_bres_v(t_coordonnees p1
 	{
 		bres_v.color_point1 = p1.color;
 		bres_v.color_point2 = p2.color;
-		// printf("LA COULEURRRRR 1 puis 2: %X | %X\n", bres_v.color_point1, bres_v.color_point2);
 	}
 	bres_v.x1 = (int)(p1.x);
 	bres_v.y1 = (int)(p1.y);
@@ -30,8 +29,8 @@ t_bres_v	initialyse_t_bres_v(t_coordonnees p1
 	bres_v.i = 0;
 	bres_v.dy = 2 * bres_v.ey;
 	bres_v.dx = 2 * bres_v.ex;
-	bres_v.Dy = bres_v.ey;
-	bres_v.Dx = bres_v.ex;
+	bres_v.end_dy = bres_v.ey;
+	bres_v.end_dx = bres_v.ex;
 	get_right_incrementation(&bres_v.x_incr, &bres_v.y_incr, p1, p2);
 	return (bres_v);
 }
@@ -69,9 +68,24 @@ t_mlx_vars	initialyze_mlx_vars(void)
 	return (mlx_vars);
 }
 
-t_all_struct	initialyze_all_struct(t_mlx_vars *mlx_vars)
+static void	initialyze_all_struct_second_part(t_as *as)
 {
-	t_all_struct	as;
+	as->first_anglez = as->angle_z;
+	as->persistance = 0;
+	as->incr_r = 0;
+	as->incr_g = 0;
+	as->incr_b = 0;
+	as->top = 0;
+	as->key = -1;
+	as->w = 0;
+	as->s = 0;
+	as->d = 0;
+	as->a = 0;
+}
+
+t_as	initialyze_all_struct(t_mlx_vars *mlx_vars)
+{
+	t_as	as;
 
 	as.mlx_vars = mlx_vars;
 	as.angle_x = 0;
@@ -91,5 +105,7 @@ t_all_struct	initialyze_all_struct(t_mlx_vars *mlx_vars)
 	as.incr_g = 0;
 	as.incr_b = 0;
 	as.top = 0;
+	as.key = -1;
+	initialyze_all_struct_second_part(&as);
 	return (as);
 }

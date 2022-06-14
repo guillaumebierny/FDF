@@ -6,23 +6,19 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:22:44 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/10 11:28:57 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/06/14 03:48:08 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FDF.h"
 
-int	make_the_zoom_and_h(int kc, t_all_struct *as)
+void	make_the_zoom_and_h(int kc, t_as *as)
 {
 	double	z_and_h;
 	double	zoom;
 	int		x;
 	int		y;
 
-	if (kc != 126 && kc != 125 && kc != 91 && kc != 84 && kc
-		!= 6 && kc != 7 && kc != 8 && kc != 9 && kc != 16
-		&& kc != 32 && kc != 256 && kc != 0)
-		return (1);
 	zoom = as->image->zoom;
 	z_and_h = as->image->hauteur * zoom;
 	y = 0;
@@ -38,10 +34,9 @@ int	make_the_zoom_and_h(int kc, t_all_struct *as)
 		}
 		y++;
 	}
-	return (0);
 }
 
-int	get_z_bigger(int kc, t_all_struct *as)
+void	get_z_bigger(int kc, t_as *as)
 {
 	double	incr;
 	int		y;
@@ -49,47 +44,52 @@ int	get_z_bigger(int kc, t_all_struct *as)
 
 	y = 0;
 	x = 0;
-	incr = 2;
-	if ((kc != 126 && kc != 125) || (kc == 126 && as->image->zoom + incr > 100)
-		|| (kc == 125 && as->image->zoom - incr <= 0))
-		return (1);
-	if (kc == 126)
+	incr = 0.5;
+	if (kc == ARROW_UP)
 		as->image->zoom += incr;
-	if (kc == 125)
+	if (kc == ARROW_DOWN)
 		as->image->zoom -= incr;
+}
+
+int	key_press(int keycode, t_as *as)
+{
+	as->key = keycode;
+	printf("keycode = %d\n", keycode);
+	if (keycode == KEY_W)
+		as->w = 1;
+	if (keycode == KEY_S)
+		as->s = 1;
+	if (keycode == KEY_A)
+		as->a = 1;
+	if (keycode == KEY_D)
+		as->d = 1;
 	return (0);
 }
 
-int	all_key_case(int kc, t_all_struct *as)
+int	key_release(int keycode, t_as *as)
 {
-	printf("%d\n", kc);
-	change_projection(kc, as);
-	make_modif(kc, as);
-	translation_vertical(kc, as);
-	translation_horizontal(kc, as);
-	change_color(kc, as);
-	degrade_color_mode(kc, as);
-	persistance(kc, as);
+	as->key = -1;
+	if (keycode == KEY_W)
+		as->w = 0;
+	if (keycode == KEY_S)
+		as->s = 0;
+	if (keycode == KEY_A)
+		as->a = 0;
+	if (keycode == KEY_D)
+		as->d = 0;
+	return (0);
+}
+
+int	all_key_case(t_as *as)
+{
+	change_projection(as->key, as);
+	make_modif(as->key, as);
+	translation_vertical(as->key, as);
+	translation_horizontal(as->key, as);
+	change_color(as->key, as);
+	degrade_color_mode(as->key, as);
+	persistance(as->key, as);
 	push_updated_image(as);
-	cluse(kc, as->mlx_vars->mlx);
+	cluse(as->key, as->mlx_vars->mlx);
 	return (0);
-}
-
-void	resize_the_image(t_image image, t_all_struct *as)
-{
-	int	correct;
-
-	correct = 0;
-	while (!correct)
-	{
-		make_the_zoom_and_h(0, as);
-		rotation(0, as);
-		converse_to_d(*as->p3drotated, &(*as->p2d), &image, 0);
-		correct = get_dimension_to_project(*as->p2d, as->image);
-	}
-	as->image->first_zoom = as->image->zoom;
-	as->image->img = mlx_new_image(as->mlx_vars->mlx, WIDTH, HEIGHT);
-	as->image->address = mlx_get_data_addr(as->image->img,
-			&as->image->bits_per_pixel,
-			&as->image->line_length, &as->image->endian);
 }

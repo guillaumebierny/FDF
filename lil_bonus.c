@@ -6,11 +6,11 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:46:59 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/14 03:48:08 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/06/30 19:02:40 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FDF.h"
+#include "fdf_bonus.h"
 
 void	reset_image(t_image *image, unsigned int color)
 {

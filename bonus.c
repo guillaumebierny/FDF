@@ -6,11 +6,11 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:00:46 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/14 03:48:08 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/06/30 19:08:58 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FDF.h"
+#include "fdf_bonus.h"
 
 void	make_modif(int kc, t_as *as)
 {

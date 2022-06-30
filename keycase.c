@@ -6,35 +6,11 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 04:22:44 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/14 03:48:08 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/06/30 19:40:57 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FDF.h"
-
-void	make_the_zoom_and_h(int kc, t_as *as)
-{
-	double	z_and_h;
-	double	zoom;
-	int		x;
-	int		y;
-
-	zoom = as->image->zoom;
-	z_and_h = as->image->hauteur * zoom;
-	y = 0;
-	while ((*as->p3drotated)[y][0].exist)
-	{
-		x = 0;
-		while ((*as->p3drotated)[y][x].exist)
-		{
-			(*as->p3drotated)[y][x].x = (int)((((*as->p3d)[y][x].x) * zoom));
-			(*as->p3drotated)[y][x].y = (int)((((*as->p3d)[y][x].y) * zoom));
-			(*as->p3drotated)[y][x].z = (int)((((*as->p3d)[y][x].z) * z_and_h));
-			x++;
-		}
-		y++;
-	}
-}
+#include "fdf_bonus.h"
 
 void	get_z_bigger(int kc, t_as *as)
 {

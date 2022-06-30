@@ -6,7 +6,7 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 03:17:18 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/14 03:48:08 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/06/30 19:46:17 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,34 +69,4 @@ void	blue_case(t_bres_v *bres, unsigned int *color,
 	if (bres->b1 > bres->b2)
 		*color += bres->b1 - (unsigned int)
 			(((double)(bres->b1 - bres->b2) / spacing) * i);
-}
-
-void	lil_loop_bresenham(t_index ind, t_coor p[4],
-	t_coor **point, t_as *as)
-{
-	while (point[ind.y][0].exist)
-	{
-		ind.x = 0;
-		while (point[ind.y][ind.x].exist)
-		{
-			if (point[ind.y][ind.x + 1].exist)
-			{
-				p[0] = point[ind.y][ind.x];
-				p[1] = point[ind.y][ind.x + 1];
-				p[2] = (*as->p3d)[ind.y][ind.x];
-				p[3] = (*as->p3d)[ind.y][ind.x + 1];
-				bresenham_algo(p, as, ind);
-			}
-			if (point[ind.y + 1][0].exist)
-			{
-				p[0] = point[ind.y][ind.x];
-				p[1] = point[ind.y + 1][ind.x];
-				p[2] = (*as->p3d)[ind.y][ind.x];
-				p[3] = (*as->p3d)[ind.y + 1][ind.x];
-				bresenham_algo(p, as, ind);
-			}
-			ind.x++;
-		}
-		ind.y++;
-	}
 }

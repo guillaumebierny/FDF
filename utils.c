@@ -6,7 +6,7 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 06:22:23 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/14 03:48:08 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/06/30 19:46:35 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,56 @@ void	gather_struct(t_as *as, t_coor ***p3d
 	as->p3drotated = p3drotated;
 }
 
-void	cluse(int kc, t_mlx_vars *mlx)
+void	make_the_zoom_and_h(int kc, t_as *as)
 {
-	if (kc == 53)
+	double	z_and_h;
+	double	zoom;
+	int		x;
+	int		y;
+
+	zoom = as->image->zoom;
+	z_and_h = as->image->hauteur * zoom;
+	y = 0;
+	while ((*as->p3drotated)[y][0].exist)
 	{
-		mlx_destroy_window(mlx->mlx, mlx->win_mlx);
-		exit(EXIT_SUCCESS);
+		x = 0;
+		while ((*as->p3drotated)[y][x].exist)
+		{
+			(*as->p3drotated)[y][x].x = (int)((((*as->p3d)[y][x].x) * zoom));
+			(*as->p3drotated)[y][x].y = (int)((((*as->p3d)[y][x].y) * zoom));
+			(*as->p3drotated)[y][x].z = (int)((((*as->p3d)[y][x].z) * z_and_h));
+			x++;
+		}
+		y++;
+	}
+}
+
+void	lil_loop_bresenham(t_index ind, t_coor p[4],
+	t_coor **point, t_as *as)
+{
+	while (point[ind.y][0].exist)
+	{
+		ind.x = 0;
+		while (point[ind.y][ind.x].exist)
+		{
+			if (point[ind.y][ind.x + 1].exist)
+			{
+				p[0] = point[ind.y][ind.x];
+				p[1] = point[ind.y][ind.x + 1];
+				p[2] = (*as->p3d)[ind.y][ind.x];
+				p[3] = (*as->p3d)[ind.y][ind.x + 1];
+				bresenham_algo(p, as, ind);
+			}
+			if (point[ind.y + 1][0].exist)
+			{
+				p[0] = point[ind.y][ind.x];
+				p[1] = point[ind.y + 1][ind.x];
+				p[2] = (*as->p3d)[ind.y][ind.x];
+				p[3] = (*as->p3d)[ind.y + 1][ind.x];
+				bresenham_algo(p, as, ind);
+			}
+			ind.x++;
+		}
+		ind.y++;
 	}
 }

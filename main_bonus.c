@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/17 15:30:43 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/30 19:47:29 by gbierny          ###   ########.fr       */
+/*   Created: 2022/06/30 18:05:50 by gbierny           #+#    #+#             */
+/*   Updated: 2022/06/30 19:50:46 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FDF.h"
+#include "fdf_bonus.h"
 
-int	clise(int kc, t_as *as)
+void	cluse(int kc, t_mlx_vars *mlx)
 {
 	if (kc == 53)
 	{
-		mlx_destroy_window(as->mlx_vars->mlx, as->mlx_vars->win_mlx);
+		mlx_destroy_window(mlx->mlx, mlx->win_mlx);
 		exit(EXIT_SUCCESS);
 	}
-	return (0);
 }
 
 void	wrong_number_case(int argc)
@@ -50,10 +49,9 @@ int	main(int argc, char **argv)
 	dup_tab_point(point[0], &point[1]);
 	gather_struct(&as, &point[0], &point[1], &point[2]);
 	resize_the_image(image, &as);
-	make_bresenham(*as.p2d, &as);
-	mlx_put_image_to_window(as.mlx_vars->mlx, as.mlx_vars->win_mlx,
-		as.image->img, 0, 0);
-	mlx_hook(as.mlx_vars->win_mlx, 2, 1L << 0, clise, &as);
+	mlx_hook(as.mlx_vars->win_mlx, 2, 1L << 0, key_press, &as);
+	mlx_hook(as.mlx_vars->win_mlx, 3, 1L << 1, key_release, &as);
+	mlx_loop_hook(as.mlx_vars->mlx, &all_key_case, &as);
 	mlx_loop(as.mlx_vars->mlx);
 	return (0);
 }

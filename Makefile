@@ -1,11 +1,11 @@
 NAME = fdf
 SRC = bresenham.c initialyze.c parsing.c resize.c set_point.c utils.c toutou_D.c \
 		fdf_utils.c color_by_z.c lil_bonus.c matrix_rotation.c  make_rotation.c\
-		bresenham_utils.c
+		bresenham_utils.c parsing_utils.c
 OBJ = $(SRC:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-MLX = -lmlx -framework OpenGL -framework AppKit
+MLX = -framework OpenGL -framework AppKit -L./minilibx_macos -lmlx
 LDFLAGS = -L./libft/
 LIBFT = ./libft/libft.a
 MAIN_SRC = main.c

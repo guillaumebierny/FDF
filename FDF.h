@@ -6,7 +6,7 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:09:27 by gbierny           #+#    #+#             */
-/*   Updated: 2022/06/30 19:53:52 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/07/20 19:07:31 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define WIDTH 1250
 # define HEIGHT 850
 # include <math.h>
-# include <mlx.h>
+# include "./minilibx_macos/mlx.h"
 # include "./libft/libft.h"
 # include "./libft/get_next_line.h"
 
@@ -168,6 +168,7 @@ void			ft_toupper_str(char *s);
 int				hex_to_dec(char s, char *base);
 int				get_dimension_to_project(t_coor **point, t_image *image);
 void			dup_tab_point(t_coor **point_3d, t_coor ***point_2d);
+void			dup_tab_point_utils(int *x, int *y, t_coor **source);
 void			get_width_and_height(t_image *image, t_coor **point);
 void			converse_to_d(t_coor **p3d, t_coor ***p2d,
 					t_image *image, int type_of_conv);

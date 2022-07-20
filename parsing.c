@@ -6,7 +6,7 @@
 /*   By: gbierny <gbierny@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 00:11:44 by gbierny           #+#    #+#             */
-/*   Updated: 2022/07/13 20:44:13 by gbierny          ###   ########.fr       */
+/*   Updated: 2022/07/20 19:05:44 by gbierny          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	read_file(char *argv, t_index *ind, char **whole_file)
 	char	*line;
 
 	fd = open(argv, O_RDONLY);
-	if (fd<0)
+	if (fd < 0)
 		error_message("fichier invalide");
 	line = get_next_line(fd);
 	while (line)
@@ -105,10 +105,7 @@ void	dup_tab_point(t_coor **source, t_coor ***dest)
 
 	x = 0;
 	y = 0;
-	while (source[y][0].exist)
-		y++;
-	while (source[0][x].exist)
-		x++;
+	dup_tab_point_utils(&x, &y, source);
 	(*dest) = (t_coor **)malloc(sizeof(t_coor *) * (y + 1));
 	if (!*dest)
 		error_message("probleme de malloc");
